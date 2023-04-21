@@ -1,12 +1,12 @@
 #include <Arduino.h>
 
 //TB6612 pins
-const int right_R1=8;    
-const int right_R2=12;
-const int PWM_R=10;
-const int left_L1=7;
-const int left_L2=6;
-const int PWM_L=9;
+const int right_R1=12;    
+const int right_R2=19;
+const int PWM_R=5;
+const int left_L1=14;
+const int left_L2=27;
+const int PWM_L=13;
 
 void setup() 
 {
