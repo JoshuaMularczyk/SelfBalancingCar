@@ -7,8 +7,8 @@ const int left_L1=14;
 const int left_L2=27;
 const int PWM_L=13;
 
-const int PinA_left = SCL;    // set the left motor’s pulse pin to D5
-const int PinA_right = SDA;    //set the right motor’s pulse pin to D4
+const int PinA_left = 16;    // set the left motor’s pulse pin to D5
+const int PinA_right = 17;    //set the right motor’s pulse pin to D4
 
 int times=0,newtime=0,d_time=100;   // time, new time, time interval
 int valA=0,valB=0,flagA=0,flagB=0;    //variable valA and valB for calculating the number of pulse
