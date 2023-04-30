@@ -48,7 +48,7 @@ void setup(){
 	// Enable the weak pull up resistors
 	ESP32Encoder::useInternalWeakPullResistors=UP;
 
-	// use pin D5 and D22 for the first encoder
+	// use pin D5 and D2 for the first encoder
 	encoder.attachHalfQuad(D5, D2);
 	// use pin D3 and D4 for the second encoder (Order matters)
 	encoder2.attachHalfQuad(D3, D4); 
@@ -64,8 +64,8 @@ void loop(){
   digitalWrite(right_R2,HIGH);
   digitalWrite(left_L1,LOW);
   digitalWrite(left_L2,HIGH);
-  analogWrite(PWM_R,200);   // write into PWM value 0~255（speed）
-  analogWrite(PWM_L,200);
+  analogWrite(PWM_R,100);   // write into PWM value 0~255（speed）
+  analogWrite(PWM_L,100);
 
 	// Loop and read the count
 	Serial.println("Encoder count = " + String((int32_t)encoder.getCount()) + " " + String((int32_t)encoder2.getCount()));

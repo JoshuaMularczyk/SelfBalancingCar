@@ -15,7 +15,7 @@ int valA=0,valB=0,flagA=0,flagB=0;    //variable valA and valB for calculating t
 
 void setup() 
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   pinMode(right_R1,OUTPUT);    // set the TB6612 pins to OUTPUT
   pinMode(right_R2,OUTPUT);
@@ -36,8 +36,8 @@ void loop()
   digitalWrite(right_R2,LOW);
   digitalWrite(left_L1,HIGH);
   digitalWrite(left_L2,LOW);
-  analogWrite(PWM_R,100);   //write into PWM value 0~255（speed）
-  analogWrite(PWM_L,200);
+  analogWrite(PWM_R,50);   //write into PWM value 0~255（speed）
+  analogWrite(PWM_L,50);
 
   newtime=times=millis();     //make newtime and times equal to the time the program runs to here 
   while((newtime-times)<d_time)    //if less than the setting d_time，always loop
