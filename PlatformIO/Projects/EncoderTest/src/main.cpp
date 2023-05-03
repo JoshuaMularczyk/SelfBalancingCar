@@ -64,8 +64,8 @@ void loop(){
   digitalWrite(right_R2,HIGH);
   digitalWrite(left_L1,LOW);
   digitalWrite(left_L2,HIGH);
-  analogWrite(PWM_R,100);   // write into PWM value 0~255（speed）
-  analogWrite(PWM_L,100);
+  analogWrite(PWM_R,14);   // write into PWM value 0~255（speed）
+  analogWrite(PWM_L,14);
 
 	// Loop and read the count
 	Serial.println("Encoder count = " + String((int32_t)encoder.getCount()) + " " + String((int32_t)encoder2.getCount()));
