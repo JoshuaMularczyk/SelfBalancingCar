@@ -25,7 +25,8 @@ volatile int64_t delta_omega_right = 0;
 volatile int64_t omega_left = 0;
 volatile int64_t omega_right = 0;
 int64_t new_omega_right, new_omega_left;
-
+int64_t position_left = 0;
+int64_t position_right = 0;
 
 int16_t ax, ay, az, gx, gy, gz;     //Define three-axis acceleration, three-axis gyroscope variables
 float Angle;   //angle variable
@@ -89,6 +90,10 @@ void setup() {
 }
 
 void loop() {
+  //Omega_left/Omega_right is position
+  //Delta_Omega_left/Delta_Omega_right is velocity
+  //angle is theta
+  //angle_speed is theta dot
   dt = (millis() - ms_last) / 1000.0;  //My attempt at fixing the dt problem
   ms_last = millis();
   //Calculate Angles
@@ -97,6 +102,7 @@ void loop() {
   Gyro_x = -gx / 131;                                   //The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
 	Kalman_Filter(Angle, Gyro_x);
   delay(DT-2);
+
 }
 
 void motorControl(int32_t Speed) {
@@ -117,6 +123,7 @@ void motorControl(int32_t Speed) {
     analogWrite(PWM_L,Speed);
   }
 }
+
 void IRAM_ATTR onTimer(){
 new_omega_left = encoder.getCount();
 delta_omega_left = new_omega_left - omega_left;
@@ -125,6 +132,7 @@ delta_omega_right = new_omega_right - omega_right;
 omega_left = new_omega_left;
 omega_right = new_omega_right;
 }
+
 void Kalman_Filter(double angle_m, double gyro_m) {
   angle += (gyro_m - q_bias) * dt;  //Prior estimate
   angle_err = angle_m - angle;
