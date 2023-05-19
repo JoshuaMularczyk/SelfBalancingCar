@@ -90,8 +90,8 @@ void setup() {
 }
 
 void loop() {
-  //Omega_left/Omega_right is position
-  //Delta_Omega_left/Delta_Omega_right is velocity
+  //omega_left/omega_right is position
+  //delta_Omega_left/Delta_Omega_right is velocity
   //angle is theta
   //angle_speed is theta dot
   dt = (millis() - ms_last) / 1000.0;  //My attempt at fixing the dt problem
@@ -101,6 +101,15 @@ void loop() {
   Angle = -atan2(ay , az);                  //Radial rotation angle calculation formula; the negative sign is direction processing
   Gyro_x = -gx / 131;                                   //The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
 	Kalman_Filter(Angle, Gyro_x);
+
+  //Control systems code
+  //step 1 convert to usable x
+
+  //step 2 multiply k and x
+
+  //step 3 convert u to pwm value
+
+  //step 4 run motor control
   delay(DT-2);
 
 }
@@ -126,9 +135,9 @@ void motorControl(int32_t Speed) {
 
 void IRAM_ATTR onTimer(){
 new_omega_left = encoder.getCount();
-delta_omega_left = new_omega_left - omega_left;
+delta_omega_left = (new_omega_left - omega_left)*10;
 new_omega_right = encoder2.getCount();
-delta_omega_right = new_omega_right - omega_right;
+delta_omega_right = (new_omega_right - omega_right)*10;
 omega_left = new_omega_left;
 omega_right = new_omega_right;
 }
@@ -163,7 +172,6 @@ void Kalman_Filter(double angle_m, double gyro_m) {
   P[0][1] -= K_0 * t_1;
   P[1][0] -= K_1 * t_0;
   P[1][1] -= K_1 * t_1;
-
   q_bias += K_1 * angle_err;      //Posterior estimation
   angle_speed = gyro_m - q_bias;  //The differential value of the output value; work out the optimal angular velocity
   angle += K_0 * angle_err;       ////Posterior estimation; work out the optimal angle
