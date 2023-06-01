@@ -22,12 +22,18 @@ const int PWM_L=13;
 hw_timer_t *My_timer = NULL;
 volatile int64_t delta_omega_left = 0;
 volatile int64_t delta_omega_right = 0;
+volatile int64_t delta2_omega_left = 0;
+volatile int64_t delta2_omega_right = 0;
 volatile int64_t omega_left = 0;
 volatile int64_t omega_right = 0;
-int64_t new_omega_right, new_omega_left;
-int64_t position_left = 0;
-int64_t position_right = 0;
-
+int64_t new_omega_right, new_omega_left, old_delta_omega_left, old_delta_omega_right;
+float position_left = 0;
+float position_right = 0;
+float velocity_left = 0;
+float velocity_right = 0;
+float accel_left = 0;
+float accel_right = 0;
+float u = 0;
 int16_t ax, ay, az, gx, gy, gz;     //Define three-axis acceleration, three-axis gyroscope variables
 float Angle;   //angle variable
 int16_t Gyro_x;   //Angular velocity variable
@@ -42,18 +48,19 @@ float K1 = 0.05;  // a function containing the Kalman gain is used to calculate 
 float K_0, K_1, t_0, t_1;
 float angle_err;
 float q_bias;  //gyroscope drift
+int32_t PWMvoltage = 0;
 
 float accelz = 0;
 float angle;
 float angle_speed;
-
+float friction = 0;
 float Pdot[4] = { 0, 0, 0, 0 };
 float P[2][2] = { { 1, 0 }, { 0, 1 } };
 float PCt_0, PCt_1, E;
 //Function Delcarations
-void IRAM_ATTR onTimer();
 void Kalman_Filter(double angle_m, double gyro_m);
-
+void Friction();
+void motorControl();
 void setup() {
   
  // Join the I2C bus
@@ -69,11 +76,6 @@ void setup() {
   pinMode(left_L1,OUTPUT);
   pinMode(left_L2,OUTPUT);
   pinMode(PWM_L,OUTPUT);
-
-  My_timer = timerBegin(0, 80, true);
-  timerAttachInterrupt(My_timer, &onTimer, true);
-  timerAlarmWrite(My_timer, 100000, true);  //Millle number is the sample time in uS.
-  timerAlarmEnable(My_timer); //Just Enable
 
 	// Enable the weak pull up resistors
 	ESP32Encoder::useInternalWeakPullResistors=UP;
@@ -98,48 +100,67 @@ void loop() {
   ms_last = millis();
   //Calculate Angles
   mpu6050.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);     //IIC to get MPU6050 six-axis data  ax ay az gx gy gz
-  Angle = -atan2(ay , az);                  //Radial rotation angle calculation formula; the negative sign is direction processing
-  Gyro_x = -gx / 131;                                   //The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
+  Angle = -atan2(ay , az);                              //Radial rotation angle calculation formula; the negative sign is direction processing
+  Gyro_x = -gx / 7506.;                                 //The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
 	Kalman_Filter(Angle, Gyro_x);
+
+
+  new_omega_left = encoder.getCount();
+  delta_omega_left = (new_omega_left - omega_left) / dt;
+  //delta2_omega_left = (new_delta_omega_left - delta_omega_left)*10;
+  new_omega_right = encoder2.getCount();
+  delta_omega_right = (new_omega_right - omega_right) / dt;
+  //delta2_omega_right = (new_delta_omega_right - delta_omega_right)*10;
+  omega_left = new_omega_left;
+  omega_right = new_omega_right;
+
+
 
   //Control systems code
   //step 1 convert to usable x
-
+  position_left = omega_left / 104.85;
+  position_right = omega_right / 104.85;
+  velocity_left = delta_omega_left / 104.85;
+  velocity_right = delta_omega_right / 104.85;
+  //accel_left = delta2_omega_left / 104.85;
+  //accel_right = delta2_omega_right / 104.85;
   //step 2 multiply k and x
-
+  //PWMvoltage = -34.91 * position_left + 7.81 * velocity_left - 42.79 * angle - 0.20 * angle_speed;
+  //PWMvoltage = -4152.3 * position_left + 2.9637 * velocity_left - 1144.3 * angle - 1857.4 * angle_speed;
+  PWMvoltage = -18.5695 * position_left + 25.7439 * velocity_left - 67.9441 * angle - 18.5566 * angle_speed;
   //step 3 convert u to pwm value
+  //Friction();
+  if (velocity_left == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage >= 0 ) {
+    PWMvoltage += 14;
+  } else if (velocity_left == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage < 0) {
+    PWMvoltage -= 14;
+  }
 
+  Serial.print("PWM = ");
+  Serial.println(PWMvoltage);
   //step 4 run motor control
+  motorControl();
   delay(DT-2);
 
 }
 
-void motorControl(int32_t Speed) {
+void motorControl() {
   //Write to motor pins
-  if (signbit(Speed)) {
+  if (PWMvoltage <= 0) {
     digitalWrite(right_R1,HIGH);
     digitalWrite(right_R2,LOW);
     digitalWrite(left_L1,HIGH);
     digitalWrite(left_L2,LOW);
-    analogWrite(PWM_R,-Speed);   // write into PWM value 0~255（speed）
-    analogWrite(PWM_L,-Speed);
+    analogWrite(PWM_R,-PWMvoltage);   // write into PWM value 0~255（speed）
+    analogWrite(PWM_L,-PWMvoltage);
   } else {
     digitalWrite(right_R1,LOW);
     digitalWrite(right_R2,HIGH);
     digitalWrite(left_L1,LOW);
     digitalWrite(left_L2,HIGH);
-    analogWrite(PWM_R,Speed);   // write into PWM value 0~255（speed）
-    analogWrite(PWM_L,Speed);
+    analogWrite(PWM_R,PWMvoltage);   // write into PWM value 0~255（speed）
+    analogWrite(PWM_L,PWMvoltage);
   }
-}
-
-void IRAM_ATTR onTimer(){
-new_omega_left = encoder.getCount();
-delta_omega_left = (new_omega_left - omega_left)*10;
-new_omega_right = encoder2.getCount();
-delta_omega_right = (new_omega_right - omega_right)*10;
-omega_left = new_omega_left;
-omega_right = new_omega_right;
 }
 
 void Kalman_Filter(double angle_m, double gyro_m) {
