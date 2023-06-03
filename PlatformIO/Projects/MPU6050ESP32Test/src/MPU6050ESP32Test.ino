@@ -47,10 +47,14 @@ void setup()
 void loop() 
 {
   mpu6050.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);     //IIC to get MPU6050 six-axis data  ax ay az gx gy gz
-  Angle = atan2(ay , az)*180/PI;           //Radial rotation angle calculation formula; the negative sign is direction processing
-  Gyro_x = gx / 131;              //7506. The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
+  Angle = atan2(ay , az);           //Radial rotation angle calculation formula; the negative sign is direction processing
+  Gyro_x = gx / 7506.;              //7506. The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
   Kalman_Filter(Angle, Gyro_x);
-  Serial.print("Angle = ");
+  Serial.print("Accely = ");
+  Serial.print(ay);
+  Serial.print("   Accelz = ");
+  Serial.print(az); 
+  Serial.print("   Angle = ");
   Serial.print(Angle);
   Serial.print("   Gyro_x = ");
   Serial.print(Gyro_x);
