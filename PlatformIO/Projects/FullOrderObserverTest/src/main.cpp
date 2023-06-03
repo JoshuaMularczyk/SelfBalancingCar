@@ -112,7 +112,7 @@ void loop() {
   //step 2 multiply k and x
   //PWMvoltage = -34.91 * position_left + 7.81 * velocity_left - 42.79 * angle - 0.20 * angle_speed;
   //PWMvoltage = -4152.3 * position_left + 2.9637 * velocity_left - 1144.3 * angle - 1857.4 * angle_speed;
-  PWMvoltage = 377.9645 * positionk - 21.8051 * velocityk + 46.645 * anglek + 5.3885 * angle_speedk;
+  PWMvoltage = -377.9645 * position_left + 21.8051 * velocity_left - 46.645 * angle - 5.3885 * angle_speed;
   //step 3 convert u to pwm value
   //Friction();
   if (velocityk == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage >= 0 ) {

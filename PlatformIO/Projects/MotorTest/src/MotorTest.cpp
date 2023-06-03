@@ -27,6 +27,6 @@ void loop()
   digitalWrite(right_R2,LOW);
   digitalWrite(left_L1,HIGH);
   digitalWrite(left_L2,LOW);
-  analogWrite(PWM_R,100);   // write into PWM value 0~255（speed）
-  analogWrite(PWM_L,100);
+  analogWrite(PWM_R,14);   // write into PWM value 0~255（speed）
+  analogWrite(PWM_L,14);
 }
