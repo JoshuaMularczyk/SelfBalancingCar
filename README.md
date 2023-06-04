@@ -75,6 +75,8 @@ This simulation was a more fine tuned way of finding our poles and proved to be 
 
 ![image](https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/2069e01a-2389-497a-bf15-6237f45341b7)
 
+Below is a simulation of the output after LQR was applied:
+
 <img width="488" alt="LQR" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/8fe2872a-8480-44e7-96e1-8b94bb2f965f">
 
 ### Full Order Observer
