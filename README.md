@@ -41,7 +41,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - width of wheel: 0.025 m
 
-- Motor Constant: 3.1113 Nm/A                    (back emf with drill test)
+- Motor Constant: 3.1113 Nm/A      
 
 - Resistance: 4.6 ohms
 
