@@ -66,11 +66,15 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 ### Placing Poles
 
-
+<img width="434" alt="PlacingPOles" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/34e420e2-c010-4fbc-bf32-ea4ae69e7005">
 
 ### LQR
 
+<img width="488" alt="LQR" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/8fe2872a-8480-44e7-96e1-8b94bb2f965f">
+
 ### Full Order Observer
+
+<img width="462" alt="FULLORder" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/e81ea9e2-ce91-4efa-aee5-bad670a3f4e1">
 
 ## Results
 
