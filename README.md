@@ -41,7 +41,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - width of wheel: 0.025 m
 
-- Motor Constant: 0.0298                           (back emf with drill test)
+- Motor Constant: 3.1113 V/(rad/s)                     (back emf with drill test)
 
 - Resistance: 4.6 ohms
 
@@ -60,7 +60,9 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - MPU6050 Test
 
-- 
+- BackEMF Test
+<img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/305eecc9-f6ad-477e-900e-3a0510dfc3e4">
+
 
 ## Simulations
 
