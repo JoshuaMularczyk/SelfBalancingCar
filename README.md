@@ -50,7 +50,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 ### Matrices
 
-<img width="344" alt="ABCD" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/6b419bfb-7297-45be-adaf-2b8ed78176c8">
+<img width="444" alt="ABCD" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/6b419bfb-7297-45be-adaf-2b8ed78176c8">
 
 ## Initial Testing
 
@@ -65,9 +65,15 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 ### Placing Poles
 
+This simulation uses our matrices and python's ct.place function to get a feedback matrix that can be used to get our pwm values.
+
 <img width="434" alt="PlacingPOles" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/34e420e2-c010-4fbc-bf32-ea4ae69e7005">
 
 ### LQR
+
+This simulation was a more fine tuned way of finding our poles and proved to be better overall then handplacing poles. It uses a Q variable to determine the impact that it has on position and an R variable to determine the impact that the PWM value has on the system. The overall equation is seen below:
+
+![image](https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/2069e01a-2389-497a-bf15-6237f45341b7)
 
 <img width="488" alt="LQR" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/8fe2872a-8480-44e7-96e1-8b94bb2f965f">
 
