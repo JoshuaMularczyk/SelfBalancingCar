@@ -86,8 +86,8 @@ void setup() {
 }
 
 void loop() {
-  //omega_left/omega_right is position
-  //delta_Omega_left/Delta_Omega_right is velocity
+  //omega_left/omega_right is encoder position
+  //delta_Omega_left/Delta_Omega_right is encoder velocity
   //angle is theta
   //angle_speed is theta dot
   dt = (millis() - ms_last) / 1000.0;  //My attempt at fixing the dt problem
@@ -114,16 +114,9 @@ void loop() {
   //step 1 convert to usable x
   position = omega_left / 104.85 * 0.03375;
   velocity = delta_omega_left / 104.85 * 0.03375;
-  //accel_left = delta2_omega_left / 104.85;
-  //accel_right = delta2_omega_right / 104.85;
-  //step 2 multiply k and x
-  //PWMvoltage = -34.91 * position_left + 7.81 * velocity_left - 42.79 * angle - 0.20 * angle_speed;
-  //PWMvoltage = -4152.3 * position_left + 2.9637 * velocity_left - 1144.3 * angle - 1857.4 * angle_speed;
-    PWMvoltage = -577.3503 * position + 22.8956 * velocity - 1437.85 * angle - 81.7721 * angle_speed;
-  //PWMvoltage = -2236.068 * position_left + 12.866 * velocity_left - 584.88 * angle - 63.49 * angle_speed;
-  //PWMvoltage = -22360.67 * position_left - 107.42 * velocity_left - 1396.15 * angle - 634.73 * angle_speed;
-  //step 3 convert u to pwm value
-  //Friction();
+  //Calculate u by doing k.x
+  PWMvoltage = -577.3503 * position + 22.8956 * velocity - 1437.85 * angle - 81.7721 * angle_speed;
+  //The following is for setting bounds and dealing with static friction.
   if (PWMvoltage > 255) {
     PWMvoltage = 255;
   }
@@ -138,7 +131,7 @@ void loop() {
   if (angle > 0.785 || angle < -0.785) {
     PWMvoltage = 0;
   }
-  
+  //Print out everything we need
   Serial.print("Position = ");
   Serial.print(position);
   Serial.print("   Velocity = ");
@@ -147,25 +140,27 @@ void loop() {
   Serial.print(angle);
   Serial.print("   angle_speed = ");
   Serial.print(angle_speed);
+  Serial.print("   dt = ");
+  Serial.print(dt);
   Serial.print("   PWM = ");
   Serial.println(PWMvoltage);
   
   //step 4 run motor control
   motorControl();
-  delay(DT+5);
+  delay(15);
 
 }
 
 void motorControl() {
   //Write to motor pins
-  if (PWMvoltage <= 0) {
+  if (PWMvoltage <= 0) {              // reverse pin setup for negative direction.
     digitalWrite(right_R1,HIGH);
     digitalWrite(right_R2,LOW);
     digitalWrite(left_L1,HIGH);
     digitalWrite(left_L2,LOW);
     analogWrite(PWM_R,-PWMvoltage);   // write into PWM value 0~255（speed）
     analogWrite(PWM_L,-PWMvoltage);
-  } else {
+  } else {                            // forward pin setup for positive direction.
     digitalWrite(right_R1,LOW);
     digitalWrite(right_R2,HIGH);
     digitalWrite(left_L1,LOW);
