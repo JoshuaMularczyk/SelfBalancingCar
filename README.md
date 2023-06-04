@@ -56,9 +56,9 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - Beeping Test: Performed a beeping test to confirm the board was functional.
 - Encoder Test: Tested the Hall Effect Encoders on the motors to determine a constant to convert the encoder value into degrees. 
-- MPU6050 Test: Tested the MPU6050 to see if the output of the accelerometers and gyros made sense. Compared to the results of using the Kalman     Filter to determine whether the Kalman filter was working as expected.
-- BackEMF Test
-<img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/305eecc9-f6ad-477e-900e-3a0510dfc3e4">
+- MPU6050 Test: Tested the MPU6050 to see if the output of the accelerometers and gyros made sense. Compared to the results of using the Kalman Filter to determine whether the Kalman filter was working as expected.
+- BackEMF Test: Determined the motor constant.
+<img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/98d6e675-199c-448a-a75c-5dc763af92a9">
 
 
 ## Simulations
