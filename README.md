@@ -11,11 +11,11 @@ This project is being conducted by [Joshua Mularczyk](https://github.com/JoshuaM
 - Hand Place Poles
 - Implement LQR
 - Implement a Full Order Observer
-- 
+- Implement a Kalman Filter
 
 ## Overview
 
-<img width="732" alt="Blockdiagram" src="https://user-images.githubusercontent.com/103919092/174162631-dade012a-9629-4a09-9742-c6e1a0bfea97.PNG">
+<img width="732" alt="Blockdiagram" src="file:///C:/Users/jcmul/OneDrive/Documents/Engineering%20Classes/ENGR%20454/BalancingCart.PNG">
 
 The power electronics project that [Christian Williams](https://github.com/cwill713) and I decided on was based around the specifications of new generation iPhone. We knew that Apple is picky with their products, so if we could get it to work with an iPhone it should, in theory, work with Android as well. I decided to use the [LM3478](https://www.ti.com/lit/ds/symlink/lm3478.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1654180125781&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Flm3478) High-Efficiency Low-Side N-Channel Controller for our Switching Regulator. This is the heart of our circuit and allows for a reccomended 2.97-40V input volage and a peak driver output current of 1A. This chip can withstand a typical input current of 2.7A and a max of 3.3A. We used a 5W 12V Solar Panel to ensure that our smartphone would charge in average conditions.
 
