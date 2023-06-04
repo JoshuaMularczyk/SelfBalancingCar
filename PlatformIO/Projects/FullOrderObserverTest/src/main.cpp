@@ -19,7 +19,6 @@ const int left_L2=27;
 const int PWM_L=13;
 
 //Encoder Speed Values
-hw_timer_t *My_timer = NULL;
 volatile int64_t delta_omega_left = 0;
 volatile int64_t delta_omega_right = 0;
 volatile int64_t delta2_omega_left = 0;
@@ -35,21 +34,18 @@ float u = 0;
 int16_t ax, ay, az, gx, gy, gz;     //Define three-axis acceleration, three-axis gyroscope variables
 float Angle;   //angle variable
 int16_t Gyro_x;   //Angular velocity variable
+float accelx = 0;
 
 int32_t PWMvoltage = 0;
 float dt = DT/1000.0;  //The value of dt is the filter sampling time.  (How do we know the loop takes 0.05 seconds?  Better fix this!)
-long int ms_last;
+long int ms_last = 0;
 float phi = 0;
-float anglek;
-float angle_speed;
-float angle_speedk;
+float anglek = 0;
+float angle_speed = 0;
+float angle_speedk = 0;
 float friction = 0;
-float Pdot[4] = { 0, 0, 0, 0 };
-float P[2][2] = { { 1, 0 }, { 0, 1 } };
-float PCt_0, PCt_1, E;
 //Function Delcarations
 void Full_Order_Observer();
-void Friction();
 void motorControl();
 
 
@@ -91,38 +87,48 @@ void loop() {
   //Calculate Angles
   mpu6050.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);     //IIC to get MPU6050 six-axis data  ax ay az gx gy gz
   angle_speed = -gx / 7506.;                                 //The X-axis angular velocity calculated by the gyroscope; the negative sign is the direction processing
-  ay = ay / 1600;                                       // actually forward/backwards acceleration
-  az = az / 1600;                                       // actually vertical acceleration
+  accelx = ay / 1600.;                                       // actually forward/backwards acceleration
 
 
-  new_omega_left = encoder.getCount();
-  delta_omega_left = (new_omega_left - omega_left) / dt;
-  //delta2_omega_left = (new_delta_omega_left - delta_omega_left)*10;
-  new_omega_right = encoder2.getCount();
-  delta_omega_right = (new_omega_right - omega_right) / dt;
-  //delta2_omega_right = (new_delta_omega_right - delta_omega_right)*10;
-  omega_left = new_omega_left;
-  omega_right = new_omega_right;
-
+  omega_left = encoder.getCount();
   phi = omega_left / 104.85;
 
   //Control systems code
-  //step 1 convert to usable x
-  
-  //step 2 multiply k and x
   //PWMvoltage = -34.91 * position_left + 7.81 * velocity_left - 42.79 * angle - 0.20 * angle_speed;
   //PWMvoltage = -4152.3 * position_left + 2.9637 * velocity_left - 1144.3 * angle - 1857.4 * angle_speed;
-  Full_Order_Observer();
-  PWMvoltage = -223606.79 * positionk - 1312.41 * velocityk - 13756.73 * anglek - 6347.52 * angle_speedk;
-  //step 3 convert u to pwm value
+ 
+  PWMvoltage = 22360.67 * positionk + 107.42 * velocityk + 1431.13 * anglek + 634.75 * angle_speedk;
   //Friction();
-  if (velocityk == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage >= 0 ) {
-    PWMvoltage += 14;
-  } else if (velocityk == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage < 0) {
-    PWMvoltage -= 14;
+  if (PWMvoltage > 255) {
+    PWMvoltage = 255;
   }
-
-  Serial.print("PWM = ");
+  if (PWMvoltage < -255) {
+    PWMvoltage = -255;
+  }
+  if (anglek > 0.785 || anglek < -0.785) {
+    PWMvoltage = 0;
+  }
+/*if (PWMvoltage >= 0 & PWMvoltage <= 14) {
+    PWMvoltage += 14;
+  } else if (PWMvoltage < 0 & PWMvoltage >=-14) {
+    PWMvoltage -= 14;
+  }*/
+  Full_Order_Observer();
+  Serial.print("phi = ");
+  Serial.print(phi);
+  Serial.print("   accelx = ");
+  Serial.print(accelx);
+  Serial.print("   angle_speed = ");
+  Serial.println(angle_speed);
+  //Serial.print("positionk = ");
+  //Serial.print(positionk);
+  //Serial.print("   velocityk = ");
+  //Serial.print(velocityk);
+  //Serial.print("   anglek = ");
+  //Serial.print(anglek);
+  //Serial.print("   angle_speedk = ");
+  //Serial.print(angle_speedk);
+  Serial.print("   PWM = ");
   Serial.println(PWMvoltage);
   //step 4 run motor control
   motorControl();
@@ -150,8 +156,8 @@ void motorControl() {
 }
 // make sure to add in ky inside the parenthesis.
 void Full_Order_Observer() {
-positionk = positionk + dt * (-350 * positionk + velocityk + 1 * phi + 13733 * ay - 8667.1 * angle_speed);
-velocityk = velocityk + dt * (1181.1 * positionk - 368.195 * velocityk - 88.522 * anglek + 4890.052 * angle_speedk + 1868 * phi - 10.762 * ay - 87.717 * angle_speed);
-anglek = anglek + dt * (57.358 * velocityk - 100 * anglek - 3950 * angle_speedk - 3140.7 * phi - 87.944 * ay + 2.1075 * angle_speed);
-angle_speedk = angle_speedk + dt * (-69534 * positionk - 4468.1 * velocityk - 4631.2 * anglek -1021.31 * angle_speedk - 25.681 * phi - 35.806 * ay + 148.96 * angle_speed);
+positionk = positionk + dt * (-29.631 * positionk + 1.0113 * velocityk + 0.00787 * anglek + 0.0086555 * angle_speedk + 1 * phi + 13733 * accelx - 8667.1 * angle_speed);
+velocityk = velocityk + dt * (-0.055348 * positionk - 91.737 * velocityk - 63.53 * anglek + 0.9707 * angle_speedk + 3.1275 * PWMvoltage + 1868 * phi - 10.762 * accelx - 87.717 * angle_speed);
+anglek = anglek + dt * (0.09305 * positionk - 72.67 * velocityk - 50.44 * anglek - 1.033 * angle_speedk - 3140.7 * phi - 87.944 * accelx + 2.1075 * angle_speed);
+angle_speedk = angle_speedk + dt * (7.609 * positionk - 7832.2 * velocityk - 1897.3 * anglek - 151.75 * angle_speedk - 183.9689 * PWMvoltage - 25.681 * phi - 35.806 * accelx + 148.96 * angle_speed);
 }

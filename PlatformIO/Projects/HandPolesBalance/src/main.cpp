@@ -27,13 +27,8 @@ volatile int64_t delta2_omega_right = 0;
 volatile int64_t omega_left = 0;
 volatile int64_t omega_right = 0;
 int64_t new_omega_right, new_omega_left, old_delta_omega_left, old_delta_omega_right;
-float position_left = 0;
-float position_right = 0;
-float velocity_left = 0;
-float velocity_right = 0;
-float accel_left = 0;
-float accel_right = 0;
-float u = 0;
+float position = 0;
+float velocity = 0;
 int16_t ax, ay, az, gx, gy, gz;     //Define three-axis acceleration, three-axis gyroscope variables
 float Angle;   //angle variable
 int16_t Gyro_x;   //Angular velocity variable
@@ -51,15 +46,14 @@ float q_bias;  //gyroscope drift
 int32_t PWMvoltage = 0;
 
 float accelz = 0;
-float angle;
-float angle_speed;
+double angle;
+double angle_speed;
 float friction = 0;
 float Pdot[4] = { 0, 0, 0, 0 };
 float P[2][2] = { { 1, 0 }, { 0, 1 } };
 float PCt_0, PCt_1, E;
 //Function Delcarations
 void Kalman_Filter(double angle_m, double gyro_m);
-void Friction();
 void motorControl();
 void setup() {
   
@@ -118,28 +112,47 @@ void loop() {
 
   //Control systems code
   //step 1 convert to usable x
-  position_left = omega_left / 104.85 * 0.03375;
-  velocity_left = delta_omega_left / 104.85 * 0.03375;
+  position = omega_left / 104.85 * 0.03375;
+  velocity = delta_omega_left / 104.85 * 0.03375;
   //accel_left = delta2_omega_left / 104.85;
   //accel_right = delta2_omega_right / 104.85;
   //step 2 multiply k and x
   //PWMvoltage = -34.91 * position_left + 7.81 * velocity_left - 42.79 * angle - 0.20 * angle_speed;
   //PWMvoltage = -4152.3 * position_left + 2.9637 * velocity_left - 1144.3 * angle - 1857.4 * angle_speed;
-  //PWMvoltage = -577.3503 * position_left + 22.8956 * velocity_left - 1437.85 * angle - 81.7721 * angle_speed;
-  PWMvoltage = -22360.67 * position_left - 107.42 * velocity_left - 1396.15 * angle - 634.73 * angle_speed;
+    PWMvoltage = -577.3503 * position + 22.8956 * velocity - 1437.85 * angle - 81.7721 * angle_speed;
+  //PWMvoltage = -2236.068 * position_left + 12.866 * velocity_left - 584.88 * angle - 63.49 * angle_speed;
+  //PWMvoltage = -22360.67 * position_left - 107.42 * velocity_left - 1396.15 * angle - 634.73 * angle_speed;
   //step 3 convert u to pwm value
   //Friction();
-  //if (velocity_left == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage >= 0 ) {
-  //  PWMvoltage += 14;
-  //} else if (velocity_left == 0.0 & old_delta_omega_left == 0.0 & PWMvoltage < 0) {
-  //  PWMvoltage -= 14;
-  //}
-
-  Serial.print("PWM = ");
+  if (PWMvoltage > 255) {
+    PWMvoltage = 255;
+  }
+  if (PWMvoltage < -255) {
+    PWMvoltage = -255;
+  }
+  if (PWMvoltage >= 0 & PWMvoltage <= 15) {
+    PWMvoltage = 15;
+  } else if (PWMvoltage < 0 & PWMvoltage >=-15) {
+    PWMvoltage = 15;
+  }
+  if (angle > 0.785 || angle < -0.785) {
+    PWMvoltage = 0;
+  }
+  
+  Serial.print("Position = ");
+  Serial.print(position);
+  Serial.print("   Velocity = ");
+  Serial.print(velocity);
+  Serial.print("   angle = ");
+  Serial.print(angle);
+  Serial.print("   angle_speed = ");
+  Serial.print(angle_speed);
+  Serial.print("   PWM = ");
   Serial.println(PWMvoltage);
+  
   //step 4 run motor control
   motorControl();
-  delay(DT-2);
+  delay(DT+5);
 
 }
 
