@@ -50,12 +50,23 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 ### Matrices
 
+<img width="344" alt="ABCD" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/6b419bfb-7297-45be-adaf-2b8ed78176c8">
 
 ## Initial Testing
+
+- Beeping Test
+
+- Encoder Test
+
+- MPU6050 Test
+
+- 
 
 ## Simulations
 
 ### Placing Poles
+
+
 
 ### LQR
 
