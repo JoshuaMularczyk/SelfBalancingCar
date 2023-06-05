@@ -41,7 +41,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - width of wheel: 0.025 m
 
-- Motor Constant: 3.1113 Nm/A      
+- Motor Constant: 0.1037 Nm/A      
 
 - Resistance: 4.6 ohms
 
@@ -58,7 +58,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 - Encoder Test: Tested the Hall Effect Encoders on the motors to determine a constant to convert the encoder value into degrees. 
 - MPU6050 Test: Tested the MPU6050 to see if the output of the accelerometers and gyros made sense. Compared to the results of using the Kalman Filter to determine whether the Kalman filter was working as expected.
 - BackEMF Test: Determined the motor constant.
-<img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/98d6e675-199c-448a-a75c-5dc763af92a9">
+<img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/2635ab06-9021-46cf-889b-f92fbc837fbf">
 
 
 ## Simulations
