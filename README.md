@@ -87,7 +87,7 @@ The full order observer creates a seperate observable system that interacts with
 
 ## Results
 
-The results of this project are not quite where we want them to be yet. The cart has balanced for at most 3 seconds so far. There is still a constant shake as seen in the [results video], and after about 2 correction, the system falls down to one side and cannot correct itself. Significant progess has been made over the time of a few months and we believe that we may need to add more to our system model. 
+The results of this project are not quite where we want them to be yet. The cart has balanced for at most 3 seconds so far. There is still a constant shake as seen in the [results video](https://github.com/JoshuaMularczyk/SelfBalancingCar/wiki/Videos), and after about 2 correction, the system falls down to one side and cannot correct itself. Significant progess has been made over the time of a few months and we believe that we may need to add more to our system model. 
 
 The best results occured while using LQR for our poles and the Kalman filter for our system. The full order observer results in high PWM values constantly.
 
