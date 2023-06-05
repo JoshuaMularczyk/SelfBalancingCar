@@ -72,7 +72,6 @@ $$ \[ D = \left( \begin{array}{c}
 0 \\
 0 \end{array} \right)\] $$
 
-<img width="444" alt="ABCD" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/6b419bfb-7297-45be-adaf-2b8ed78176c8">
 
 ## Initial Testing
 
