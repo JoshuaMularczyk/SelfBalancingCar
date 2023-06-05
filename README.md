@@ -108,7 +108,7 @@ Below is a simulation of the output after LQR was applied:
 
 ### Full Order Observer
 
-The full order observer creates a seperate observable system that interacts with the actual system using a few matrices: u, G, and K. The full order oberver simulation below also shows that error goes to zero over time.
+The full order observer creates a seperate observable system that interacts with the actual system using a few matrices: u, G, and K. The full order oberver simulation below also shows that error goes to zero over time. A rough derivation can be seen [here](https://github.com/JoshuaMularczyk/SelfBalancingCar/wiki/Full-Order-Observer-Derivation).
 
 <img width="470" alt="FULLORDEROBSrev2PNG" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/163d0e8c-4230-4fd0-8dd7-9adf1dcc011e">
 
