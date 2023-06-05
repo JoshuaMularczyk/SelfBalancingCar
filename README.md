@@ -88,6 +88,8 @@ $$ \[ D = \left( \begin{array}{c}
 <img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/2635ab06-9021-46cf-889b-f92fbc837fbf">
 </p>
 
+- Kalman Filter: We implemented a Kalman Filter to help reduce noise and provide a more effective angle and angular speed. A brief demonstration can be seen [here](https://youtu.be/zT7jcs0H1w4).
+
 ## Simulations
 
 ### Placing Poles
