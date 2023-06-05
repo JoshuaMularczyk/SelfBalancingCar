@@ -49,7 +49,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 
 ### Matrices
-\[ A = \left( \begin{array}{cccc}
+$$\[ A = \left( \begin{array}{cccc}
 0 & 1 & 0 & 0 \\
 0 & -60k^2 \over m_{w}Rr^2+I_{w}R & -m_{b}gr^2 \over m_{w}r^2+I_{w} & I_{b}r^2 \over m_{w}Lr^2+I_{w}L \\
 0 & 0 & 0 & 1 \\
@@ -59,7 +59,7 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 0 \\
 24k \over 255rm_{w}R+{255I_{w}R \over r} \\
 0 \\
--24k \over 255rm_{w}RL+{255I_{w}RL \over r} \end{array} \right)\]
+-24k \over 255rm_{w}RL+{255I_{w}RL \over r} \end{array} \right)\]$$
 
 <img width="444" alt="ABCD" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/6b419bfb-7297-45be-adaf-2b8ed78176c8">
 
