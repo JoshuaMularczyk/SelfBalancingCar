@@ -79,6 +79,7 @@ $$ \[ D = \left( \begin{array}{c}
 - Motor Test: Checked to see if communication with motors worked and which motor coincided with left or right. See [here](https://github.com/JoshuaMularczyk/SelfBalancingCar/wiki/Motor-Test).
 - Encoder Test: Tested the Hall Effect Encoders on the motors to determine a constant to convert the encoder value into degrees. 
 - MPU6050 Test: Tested the MPU6050 to see if the output of the accelerometers and gyros made sense. Compared to the results of using the Kalman Filter to determine whether the Kalman filter was working as expected.
+<img width="226" alt="MPU6050 Test Results" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/4488fd4e-1fa7-41ae-b657-68b254e8c709">
 - BackEMF Test: Determined the motor constant. To do this we dissconnected the voltage pins of the motors and attached a drill to the motor shaft. By slowly running the drill we were able to take readings of the back emf voltage caused by different motor speeds on a multimeter. The shaft encoder speed was measured by looking at the output of the encoder as we spun the motor shaft.
 <img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/2635ab06-9021-46cf-889b-f92fbc837fbf">
 
