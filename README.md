@@ -84,8 +84,9 @@ $$ \[ D = \left( \begin{array}{c}
 </p>
 
 - BackEMF Test: Determined the motor constant. To do this we dissconnected the voltage pins of the motors and attached a drill to the motor shaft. By slowly running the drill we were able to take readings of the back emf voltage caused by different motor speeds on a multimeter. The shaft encoder speed was measured by looking at the output of the encoder as we spun the motor shaft.
+<p alight="center">
 <img width="363" alt="image" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103593959/2635ab06-9021-46cf-889b-f92fbc837fbf">
-
+</p>
 
 ## Simulations
 
