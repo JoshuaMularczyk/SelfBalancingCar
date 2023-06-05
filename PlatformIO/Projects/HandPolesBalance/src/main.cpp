@@ -115,7 +115,7 @@ void loop() {
   position = omega_left / 104.85 * 0.03375;
   velocity = delta_omega_left / 104.85 * 0.03375;
   //Calculate u by doing k.x
-  PWMvoltage = -577.3503 * position + 22.8956 * velocity - 1437.85 * angle - 81.7721 * angle_speed;
+  PWMvoltage = -5000 * position + 1616.004 * velocity - 1354.722 * angle - 223.6367 * angle_speed;
   //The following is for setting bounds and dealing with static friction.
   if (PWMvoltage > 255) {
     PWMvoltage = 255;
@@ -123,11 +123,11 @@ void loop() {
   if (PWMvoltage < -255) {
     PWMvoltage = -255;
   }
-  if (PWMvoltage >= 0 & PWMvoltage <= 15) {
+  /*if (PWMvoltage >= 0 & PWMvoltage <= 15) {
     PWMvoltage = 15;
   } else if (PWMvoltage < 0 & PWMvoltage >=-15) {
     PWMvoltage = 15;
-  }
+  }*/
   if (angle > 0.785 || angle < -0.785) {
     PWMvoltage = 0;
   }
