@@ -77,12 +77,18 @@ This simulation was a more fine tuned way of finding our poles and proved to be 
 
 Below is a simulation of the output after LQR was applied:
 
-<img width="488" alt="LQR" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/8fe2872a-8480-44e7-96e1-8b94bb2f965f">
+<img width="460" alt="LQR2rev" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/35af9c7b-5848-4a01-a169-a6739c43ff6b">
 
 ### Full Order Observer
 
-<img width="462" alt="FULLORder" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/e81ea9e2-ce91-4efa-aee5-bad670a3f4e1">
+The full order observer creates a seperate observable system that interacts with the actual system using a few matrices: u, G, and K. The full order oberver simulation below also shows that error goes to zero over time.
+
+<img width="470" alt="FULLORDEROBSrev2PNG" src="https://github.com/JoshuaMularczyk/SelfBalancingCar/assets/103919092/163d0e8c-4230-4fd0-8dd7-9adf1dcc011e">
 
 ## Results
+
+The results of this project are not quite where we want them to be yet. The cart has balanced for at most 3 seconds so far. There is still a constant shake as seen in the [results video], and after about 2 correction, the system falls down to one side and cannot correct itself. Significant progess has been made over the time of a few months and we believe that we may need to add more to our system model. 
+
+The best results occured while using LQR for our poles and the Kalman filter for our system. The full order observer results in high PWM values constantly.
 
 
