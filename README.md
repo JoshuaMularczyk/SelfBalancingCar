@@ -76,7 +76,8 @@ $$ \[ D = \left( \begin{array}{c}
 
 ## Initial Testing
 
-- Beeping Test: Performed a beeping test to confirm the board was functional. See [here](https://github.com/JoshuaMularczyk/SelfBalancingCar/wiki/Beeping-Test)
+- Beeping Test: Performed a beeping test to confirm the board was functional. See [here](https://github.com/JoshuaMularczyk/SelfBalancingCar/wiki/Beeping-Test).
+- Motor Test: Checked to see if communication with motors worked and which motor coincided with left or right. See [here](https://github.com/JoshuaMularczyk/SelfBalancingCar/wiki/Motor-Test).
 - Encoder Test: Tested the Hall Effect Encoders on the motors to determine a constant to convert the encoder value into degrees. 
 - MPU6050 Test: Tested the MPU6050 to see if the output of the accelerometers and gyros made sense. Compared to the results of using the Kalman Filter to determine whether the Kalman filter was working as expected.
 - BackEMF Test: Determined the motor constant.
