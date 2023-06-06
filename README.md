@@ -47,13 +47,15 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - Gravity: 9.81 m/s
 
+- Gear Ratio (n): 30:1
+
 
 ### Matrices
 $$ \[ A = \left( \begin{array}{cccc}
 0 & 1 & 0 & 0 \\
-0 & -60k^2 \over m_{w}Rr^2+I_{w}R & -m_{b}gr^2 \over m_{w}r^2+I_{w} & I_{b}r^2 \over m_{w}Lr^2+I_{w}L \\
+0 & -2nk^2 \over m_{w}Rr^2+I_{w}R & -m_{b}gr^2 \over m_{w}r^2+I_{w} & I_{b}r^2 \over m_{w}Lr^2+I_{w}L \\
 0 & 0 & 0 & 1 \\
-0 & -60k^2 \over m_{w}RLr^2+I_{w}RL & m_{b}gr^2+m_{w}gr^2+I_{w}g \over m_{w}Lr^22+I_{w}L & -m_{b}I_{b}r^2+m_{w}I_{b}r^2+I_{w}I_{b} \over m_{b}m_{w}L^2 r^2+m_{b}I_{w}L^2 \end{array} \right)\] $$
+0 & -2nk^2 \over m_{w}RLr^2+I_{w}RL & m_{b}gr^2+m_{w}gr^2+I_{w}g \over m_{w}Lr^22+I_{w}L & -m_{b}I_{b}r^2+m_{w}I_{b}r^2+I_{w}I_{b} \over m_{b}m_{w}L^2 r^2+m_{b}I_{w}L^2 \end{array} \right)\] $$
 
 $$ \[ B = \left( \begin{array}{c}
 0 \\
@@ -63,7 +65,7 @@ $$ \[ B = \left( \begin{array}{c}
 
 $$ \[ C = \left( \begin{array}{cccc}
 1 \over r & 0 & 0 & 0 \\
-0 & -60k^2 \over m_{w}Rr^2+I_{w}R & -m_{b}gr^2 \over m_{w}r^2+I_{w} & I_{b}r^2 \over m_{w}Lr^2+I_{w}L \\
+0 & -2nk^2 \over m_{w}Rr^2+I_{w}R & -m_{b}gr^2 \over m_{w}r^2+I_{w} & I_{b}r^2 \over m_{w}Lr^2+I_{w}L \\
 0 & 0 & 0 & 1 \end{array} \right)\] $$
 
 $$ \[ D = \left( \begin{array}{c}
