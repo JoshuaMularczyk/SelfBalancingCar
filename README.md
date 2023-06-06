@@ -49,6 +49,13 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 - Gear Ratio (n): 30:1
 
+### State Variables
+
+$$ \[ State Variables = \left( \begin{array}{c}
+x \\
+\dot{x} \\
+\theta \\
+\dot{\theta} \end{array} \right)\] $$
 
 ### Matrices
 $$ \[ A = \left( \begin{array}{cccc}
