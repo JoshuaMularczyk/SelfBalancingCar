@@ -57,6 +57,11 @@ x \\
 \theta \\
 \dot{\theta} \end{array} \right)\] $$
 
+$$ \[ Measured Variables = \left( \begin{array}{c}
+\phi \\
+\ddot{x} \\
+\dot{\theta} \end{array} \right)\] $$
+
 ### Matrices
 $$ \[ A = \left( \begin{array}{cccc}
 0 & 1 & 0 & 0 \\
