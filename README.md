@@ -25,27 +25,27 @@ Next, Simulations were conducted which can be viewed in more detail below. Once 
 
 ### Constants
 
-- Total wheel mass: 0.0982 Kg
+- Total wheel mass (mw): 0.0982 Kg
 
-- Total Body mass: 0.7177 Kg
+- Total Body mass (mb): 0.7177 Kg
 
-- Center of Mass: 0.017 m up from x axis : L in model
+- Center of Mass (L): 0.017 m up from x axis
 
-- Moment of Inertia of wheels: 2.79639E-5 Kg*m^2    (Iw = 0.5*mw*r*r)
+- Moment of Inertia of wheels (Iw): 2.79639E-5 Kg*m^2    (Iw = 0.5*mw*r*r)
 
-- Moment of Inertia of body: 1.7630E-4	Kg*m^2      (Ib = 0.85*mb*L*L)
+- Moment of Inertia of body (Ib): 1.7630E-4	Kg*m^2      (Ib = 0.85*mb*L*L)
 
 - wheel diameter: 0.0675 m
 
-- wheel radius: 0.03375 m
+- wheel radius (r): 0.03375 m
 
 - width of wheel: 0.025 m
 
-- Motor Constant: 0.1037 Nm/A      
+- Motor Constant (k): 0.1037 Nm/A      
 
-- Resistance: 4.6 ohms
+- Resistance (R): 4.6 ohms
 
-- Gravity: 9.81 m/s
+- Gravity (g): 9.81 m/s
 
 - Gear Ratio (n): 30:1
 
